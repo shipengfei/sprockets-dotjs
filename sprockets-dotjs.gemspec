@@ -17,6 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "sprockets"
-  gem.add_dependency "therubyracer"
+  gem.add_development_dependency "sprockets"
+  gem.add_development_dependency "libv8"
+  gem.add_development_dependency "therubyracer"
+
 end
