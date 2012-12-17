@@ -1,21 +1,22 @@
-$:.push File.expand_path("../lib", __FILE__)
+# -*- encoding: utf-8 -*-
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'sprockets-dotjs/version'
 
-# Maintain your gem's version:
-require "sprockets-dotjs/version"
+Gem::Specification.new do |gem|
+  gem.name          = "sprockets-dotjs"
+  gem.version       = Sprockets::Dotjs::VERSION
+  gem.authors       = ["Le Duc Duy"]
+  gem.email         = ["me@duy.kr"]
+  gem.description   = "Compile dot.js template into javascript"
+  gem.summary       = "Compile dot.js template into javascript"
+  gem.homepage      = "https://github.com/duyleekun/sprockets-dotjs"
 
-# Describe your gem and declare its dependencies:
-Gem::Specification.new do |s|
-  s.name        = "sprockets-dotjs"
-  s.version     = SprocketsDotjs::VERSION
-  s.authors     = ["Joe Mifsud"]
-  s.email       = ["joe@mifsud.me"]
-  s.homepage    = ""
-  s.summary     = "Precompile doT.js templates from Sprockets"
-  s.description = ""
+  gem.files         = `git ls-files`.split($/)
+  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.require_paths = ["lib"]
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
-  s.test_files = Dir["test/**/*"]
-
-  s.add_dependency "sprockets"
-  s.add_dependency "therubyracer"
+  gem.add_dependency "sprockets"
+  gem.add_dependency "therubyracer"
 end

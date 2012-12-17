@@ -21,6 +21,9 @@ module Sprockets
       end
 
       def render(scope=Object.new, locals={}, &block)
+        scope._dependency_paths.each {|a|
+          @@context['doT']['compile'].call(open(a).read,@@context['def'])
+        }
         val = @@context['doT']['compile'].call(data,@@context['def'])
         val.to_s
       end
