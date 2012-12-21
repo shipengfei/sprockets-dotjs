@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sprockets-dotjs (1.0.1)
+    sprockets-dotjs (1.1.0)
       libv8
       rake
       sprockets
@@ -14,7 +14,7 @@ GEM
     libv8 (3.11.8.4)
     multi_json (1.5.0)
     rack (1.4.1)
-    rake (10.0.2)
+    rake (10.0.3)
     ref (1.0.2)
     sprockets (2.8.2)
       hike (~> 1.2)
