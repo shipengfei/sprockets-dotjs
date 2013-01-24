@@ -17,10 +17,10 @@ module Sprockets
         dotjs_lib = open(::File.join(::File.dirname(__FILE__), '..', '..', 'support', 'doT.js')).read
         @@context = ::V8::Context.new
         @@context.eval(dotjs_lib)
-        @@context['def'] = {}
       end
 
       def render(scope=Object.new, locals={}, &block)
+        @@context['def'] = {}
         scope._dependency_paths.each {|a|
           @@context['doT']['compile'].call(open(a).read,@@context['def'])
         }
