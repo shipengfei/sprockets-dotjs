@@ -1,6 +1,7 @@
 # Sprockets::Dotjs
 
 Compile doT.JS templates (`jst.djs` extension) into rails `JST` env variable
+
 Supports doT.JS partial feature by using Sprocket's `depend_on` directive
 
 ## Installation
