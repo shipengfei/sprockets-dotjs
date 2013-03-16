@@ -1,6 +1,8 @@
 # Sprockets::Dotjs
 
-TODO: Write a gem description
+Compile doT.JS templates (`jst.djs` extension) into rails `JST` env variable
+
+Supports doT.JS partial feature by using Sprocket's `depend_on` directive
 
 ## Installation
 
@@ -12,13 +14,9 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install sprockets-dotjs
-
 ## Usage
 
-TODO: Write usage instructions here
+Put doT.js template files inside the `assets/javascript` directory and generate them by calling `JST["#{file_path}"]()`
 
 ## Contributing
 
