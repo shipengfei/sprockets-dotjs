@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sprockets-dotjs (2.1.1)
+    sprockets-dotjs (3.0.1)
       libv8
       railties
       rake
