@@ -34,7 +34,6 @@ module Sprockets
       def render(scope=Object.new, locals={}, &block)
         @@context['def'] = {}
         dep = []
-        digest = scope.environment.file_digest(scope.pathname).to_s
         scope._dependency_assets.each {|pathname|
           if scope.pathname.to_s != pathname
             dep << pathname
@@ -43,7 +42,6 @@ module Sprockets
         }
         dep.reverse_each do |pathname|
           @@context['doT']['compile'].call(open(pathname).read,@@context['def'])
-          digest << "#{pathname}:#{scope.environment.file_digest(pathname).to_s}"
         end
         @@context['doT']['compile'].call(data,@@context['def']).to_s
       end
