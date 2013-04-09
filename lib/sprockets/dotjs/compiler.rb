@@ -1,6 +1,7 @@
 require 'sprockets'
 require 'tilt/template'
 require 'v8'
+require 'digest/md5'
 
 module Sprockets
   module DotJS
@@ -19,13 +20,32 @@ module Sprockets
         @@context.eval(dotjs_lib)
       end
 
+      def build_dependencies(set = [],environment,path)
+        processed_asset = environment.find_asset(path, :bundle => false)
+        dependency_paths = processed_asset.send(:dependency_paths).each do |dependency_file|
+          if !set.include? dependency_file.pathname
+            set << dependency_file.pathname
+            build_dependencies(set,environment,dependency_file.pathname)
+          end
+        end
+        set
+      end
+
       def render(scope=Object.new, locals={}, &block)
         @@context['def'] = {}
-        scope._dependency_paths.each {|a|
-          @@context['doT']['compile'].call(open(a).read,@@context['def'])
+        dep = []
+        digest = scope.environment.file_digest(scope.pathname).to_s
+        scope._dependency_assets.each {|pathname|
+          if scope.pathname.to_s != pathname
+            dep << pathname
+            build_dependencies(dep,scope.environment,pathname)
+          end
         }
-        val = @@context['doT']['compile'].call(data,@@context['def'])
-        val.to_s
+        dep.reverse_each do |pathname|
+          @@context['doT']['compile'].call(open(pathname).read,@@context['def'])
+          digest << "#{pathname}:#{scope.environment.file_digest(pathname).to_s}"
+        end
+        @@context['doT']['compile'].call(data,@@context['def']).to_s
       end
     end
   end
