@@ -2,7 +2,7 @@
 
 Compile doT.JS templates (`jst.djs` extension) into rails `JST` env variable
 
-Supports doT.JS partial feature by using Sprocket's `depend_on` directive
+Supports doT.JS partial feature by using Sprocket's `depend_on_asset` directive (support recursive partial dependency in `3.0`)
 
 ## Installation
 
@@ -16,7 +16,7 @@ And then execute:
 
 ## Usage
 
-Put doT.js template files inside the `assets/javascript` directory and generate them by calling `JST["#{file_path}"]()`
+Put doT.js template files inside the `assets/javascript` directory and use them by calling `JST["#{file_path}"](context)`
 
 ## Contributing
 
