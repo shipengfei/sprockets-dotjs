@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sprockets-dotjs (3.0.2)
+    sprockets-dotjs (3.1.0)
       execjs
       railties
       rake
