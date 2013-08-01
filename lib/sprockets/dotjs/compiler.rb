@@ -1,7 +1,7 @@
 require 'sprockets'
 require 'tilt/template'
-require 'v8'
 require 'digest/md5'
+require 'execjs'
 
 module Sprockets
   module DotJS
@@ -16,8 +16,7 @@ module Sprockets
 
       def initialize_engine
         dotjs_lib = open(::File.join(::File.dirname(__FILE__), '..', '..', 'support', 'doT.js')).read
-        @@context = ::V8::Context.new
-        @@context.eval(dotjs_lib)
+        @@context = ExecJS.compile(dotjs_lib)
       end
 
       def build_dependencies(set = [],environment,path)
@@ -32,7 +31,7 @@ module Sprockets
       end
 
       def render(scope=Object.new, locals={}, &block)
-        @@context['def'] = {}
+        @@context.exec("def = {}")
         dep = []
         scope._dependency_assets.each {|pathname|
           if scope.pathname.to_s != pathname
@@ -41,9 +40,9 @@ module Sprockets
           end
         }
         dep.reverse_each do |pathname|
-          @@context['doT']['compile'].call(open(pathname).read,@@context['def'])
+          @@context.exec("doT.compile(#{MultiJson.encode(open(pathname).read)},def).toString()")
         end
-        @@context['doT']['compile'].call(data,@@context['def']).to_s
+        @@context.exec("return doT.compile(#{MultiJson.encode(data)},def).toString()")
       end
     end
   end

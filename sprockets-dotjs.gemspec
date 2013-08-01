@@ -18,9 +18,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "sprockets"
-  gem.add_dependency "libv8"
   gem.add_dependency "rake"
-  gem.add_dependency "therubyracer"
+  gem.add_dependency "execjs"
   gem.add_dependency "railties"
 
 end
