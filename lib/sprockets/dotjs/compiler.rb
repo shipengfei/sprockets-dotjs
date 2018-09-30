@@ -31,6 +31,7 @@ module Sprockets
       end
 
       def render(scope=Object.new, locals={}, &block)
+        @@context ||= initialize_engine
         @@context.exec("def = {}")
         dep = []
         scope._dependency_assets.each {|pathname|
